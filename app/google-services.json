@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586108575703",
+    "project_id": "livemart-971c8",
+    "storage_bucket": "livemart-971c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586108575703:android:3ccd534cad29390898f592",
+        "android_client_info": {
+          "package_name": "com.example.livemart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586108575703-767vk2lpureg6f89ih3v4tojnf2nfmtp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClyce-QV5XmJKcKzW0Lmu8YMgw0YXl9y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586108575703-767vk2lpureg6f89ih3v4tojnf2nfmtp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
