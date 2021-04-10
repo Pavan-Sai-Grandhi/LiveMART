@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LiveMART</string>
+    <string name="i_m_not_an_admin">I\'m not an Admin?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="facebook_app_id">144389620946881</string>
+    <string name="fb_login_protocol_scheme">fb144389620946881</string>
+
 </resources>

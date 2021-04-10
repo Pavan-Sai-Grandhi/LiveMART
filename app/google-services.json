@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "586108575703",
-    "project_id": "livemart-971c8",
-    "storage_bucket": "livemart-971c8.appspot.com"
+    "project_number": "244157895307",
+    "project_id": "livemart-dfb92",
+    "storage_bucket": "livemart-dfb92.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:586108575703:android:3ccd534cad29390898f592",
+        "mobilesdk_app_id": "1:244157895307:android:61d03ce09d73960cf13a8e",
         "android_client_info": {
           "package_name": "com.example.livemart"
         }
       },
       "oauth_client": [
         {
-          "client_id": "586108575703-767vk2lpureg6f89ih3v4tojnf2nfmtp.apps.googleusercontent.com",
+          "client_id": "244157895307-b8b05eq846ap4fhrti86ad3k2lfpl8a2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.livemart",
+            "certificate_hash": "48f8d521fdefb51b83024409d2c113ef2aff477c"
+          }
+        },
+        {
+          "client_id": "244157895307-3ra0dksbll9qkiga1v7k5foukr96keno.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyClyce-QV5XmJKcKzW0Lmu8YMgw0YXl9y0"
+          "current_key": "AIzaSyDRlqZZHHe0RURCAggikYB9MKsrpnnSnYc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "586108575703-767vk2lpureg6f89ih3v4tojnf2nfmtp.apps.googleusercontent.com",
+              "client_id": "244157895307-3ra0dksbll9qkiga1v7k5foukr96keno.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
