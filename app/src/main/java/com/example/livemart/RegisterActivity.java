@@ -62,11 +62,15 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         textView_location = findViewById(R.id.current_location);
         button_location = findViewById(R.id.get_location);
 
+
+        //Runtime permissions
         if (ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(RegisterActivity.this,new String[]{
                     Manifest.permission.ACCESS_FINE_LOCATION
             },100);
+        }
+
 
         button_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +79,17 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
                 getLocation();
             }
         });
-    }
-
 }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        try {
+            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,5,RegisterActivity.this);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     private void CreateAccount() {
         String name = InputName.getText().toString();
@@ -119,18 +131,6 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
             loadingBar.show();
         }
     }
-
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        try {
-            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,5,RegisterActivity.this);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onLocationChanged(@NonNull Location location) {
         Toast.makeText(this, ""+location.getLatitude()+","+location.getLongitude(), Toast.LENGTH_SHORT).show();
@@ -144,8 +144,6 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -154,12 +152,12 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
     }
 
     @Override
-    public void onProviderEnabled(String provider) {
+    public void onProviderEnabled(@NonNull String provider) {
 
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
+    public void onProviderDisabled(@NonNull String provider) {
 
     }
 }
