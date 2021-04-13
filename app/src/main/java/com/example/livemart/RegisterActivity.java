@@ -19,16 +19,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
 
+
 public class RegisterActivity extends AppCompatActivity implements LocationListener {
     private Button CreateAccountButton;
-    private EditText InputName, InputPhoneNumber, InputPassword;
+    private EditText InputName, InputPhoneNumber, InputPassword, InputRetypePassword;
     private ProgressDialog loadingBar;
+    private RadioGroup InputUserType;
+    private RadioButton radioButton;
 
     Button button_location;
     TextView textView_location;
@@ -38,10 +43,12 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        CreateAccountButton = (Button) findViewById(R.id.register_btn);
-        InputName = (EditText) findViewById(R.id.register_username_input);
-        InputPassword = (EditText) findViewById(R.id.register_password_input);
-        InputPhoneNumber = (EditText) findViewById(R.id.register_phone_number_input);
+        CreateAccountButton = findViewById(R.id.register_btn);
+        InputName = findViewById(R.id.register_username_input);
+        InputPassword = findViewById(R.id.register_password_input);
+        InputPhoneNumber = findViewById(R.id.register_phone_number_input);
+        InputRetypePassword = findViewById(R.id.register_re_enter_password_input);
+        InputUserType = findViewById(R.id.type_of_user);
         loadingBar = new ProgressDialog(this);
 
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -54,10 +61,6 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
 
         textView_location = findViewById(R.id.current_location);
         button_location = findViewById(R.id.get_location);
-
-
-
-
 
         if (ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
@@ -72,9 +75,6 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
                 getLocation();
             }
         });
-
-        
-
     }
 
 }
@@ -83,8 +83,9 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         String name = InputName.getText().toString();
         String phone = InputPhoneNumber.getText().toString();
         String password = InputPassword.getText().toString().trim();
-        String retypePassword = InputPassword.getText().toString().trim();
-
+        String retypePassword = InputRetypePassword.getText().toString().trim();
+        int radioID = InputUserType.getCheckedRadioButtonId();
+        radioButton = findViewById(radioID);
 
         if (TextUtils.isEmpty(name))
         {
@@ -102,9 +103,13 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         {
             Toast.makeText(this, "Please retype your password...", Toast.LENGTH_SHORT).show();
         }
-        else if (!password.equals(retypePassword))
+        else if (!TextUtils.equals(password,retypePassword))
         {
             Toast.makeText(this, "Password doesn't match...", Toast.LENGTH_SHORT).show();
+        }
+        else if (radioID == -1)
+        {
+            Toast.makeText(this, "Please select type of user...", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -140,6 +145,21 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
             e.printStackTrace();
         }
 
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
 
     }
 }
