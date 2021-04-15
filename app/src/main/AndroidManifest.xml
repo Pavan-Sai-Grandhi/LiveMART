@@ -4,8 +4,8 @@
     package="com.example.livemart">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,9 @@
         android:theme="@style/Theme.LiveMART"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".Retailer.RetailerCategoryActivity"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".RegisterActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
