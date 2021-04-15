@@ -171,7 +171,7 @@
             android:id="@+id/Wholesaler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wholessaler"
+            android:text="Wholesaler"
             android:textColor="@color/black" />
     </RadioGroup>
 
