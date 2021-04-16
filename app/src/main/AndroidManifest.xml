@@ -16,9 +16,14 @@
         android:theme="@style/Theme.LiveMART"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Retailer.RetailerAddNewActivity"></activity>
+        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".ProductDetailsActivity" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.LiveMART.NoActionBar" />
+        <activity android:name=".Retailer.RetailerAddNewActivity" />
         <activity android:name=".Retailer.RetailerCategoryActivity" />
-        <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterActivity" />
 
         <meta-data

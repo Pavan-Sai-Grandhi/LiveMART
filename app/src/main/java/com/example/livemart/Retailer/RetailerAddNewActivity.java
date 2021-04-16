@@ -32,7 +32,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class RetailerAddNewActivity extends AppCompatActivity {
-    private String CategoryName, Description, Price, Pname, PQuantity, saveCurrentDate, saveCurrentTime;
+    private String CategoryName, Description, Price, Pname, PQuantity, saveCurrentDate, saveCurrentTime, user;
     private Button AddNewProductButton;
     private ImageView InputProductImage;
     private EditText InputProductName, InputProductDescription, InputProductPrice, InputProductQuantity;
@@ -50,6 +50,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_retailer_add_new);
 
         CategoryName = getIntent().getExtras().get("category").toString();
+        user = getIntent().getExtras().get("user").toString();
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
@@ -199,7 +200,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         productMap.put("pname", Pname);
         productMap.put("pquantity", PQuantity);
 
-        ProductsRef.child(productRandomKey).updateChildren(productMap)
+        ProductsRef.child(user).child(productRandomKey).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)
@@ -207,6 +208,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             Intent intent = new Intent(RetailerAddNewActivity.this, RetailerCategoryActivity.class);
+                            intent.putExtra("user",user);
                             startActivity(intent);
 
                             loadingBar.dismiss();
