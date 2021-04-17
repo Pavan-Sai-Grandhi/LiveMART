@@ -156,13 +156,15 @@ public class LoginActivity extends AppCompatActivity {
                                     loadingBar.dismiss();
 
                                     Intent intent = new Intent(LoginActivity.this, RetailerCategoryActivity.class);
+                                    intent.putExtra("user", usersData.getUser());
                                     startActivity(intent);
                                 }
                                 else {
                                     Toast.makeText(LoginActivity.this, "Welcome "+usersData.getName()+", you are logged in Successfully...", Toast.LENGTH_SHORT).show();
                                     loadingBar.dismiss();
 
-                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, RetailerCategoryActivity.class);
+                                    intent.putExtra("user", usersData.getUser());
                                     startActivity(intent);
                                 }
                             }

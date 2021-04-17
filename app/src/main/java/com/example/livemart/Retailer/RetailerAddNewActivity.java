@@ -40,6 +40,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
     private String productRandomKey, downloadImageUrl;
     private StorageReference ProductImagesRef;
     private DatabaseReference ProductsRef;
+    private String user;
 
     private static final int GalleryPick = 1;
     private Uri ImageUri;
@@ -50,15 +51,16 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_retailer_add_new);
 
         CategoryName = getIntent().getExtras().get("category").toString();
+        user = getIntent().getExtras().get("user").toString();
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
-        AddNewProductButton = (Button) findViewById(R.id.add_new_product);
-        InputProductImage = (ImageView) findViewById(R.id.select_product_image);
-        InputProductName = (EditText) findViewById(R.id.product_name);
-        InputProductDescription = (EditText) findViewById(R.id.product_description);
-        InputProductPrice = (EditText) findViewById(R.id.product_price);
-        InputProductQuantity = (EditText) findViewById(R.id.product_quantity);
+        AddNewProductButton = findViewById(R.id.add_new_product);
+        InputProductImage = findViewById(R.id.select_product_image);
+        InputProductName = findViewById(R.id.product_name);
+        InputProductDescription = findViewById(R.id.product_description);
+        InputProductPrice =  findViewById(R.id.product_price);
+        InputProductQuantity = findViewById(R.id.product_quantity);
         loadingBar = new ProgressDialog(this);
 
         InputProductImage.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +201,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         productMap.put("pname", Pname);
         productMap.put("pquantity", PQuantity);
 
-        ProductsRef.child(productRandomKey).updateChildren(productMap)
+        ProductsRef.child(user).child(productRandomKey).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)
@@ -207,6 +209,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             Intent intent = new Intent(RetailerAddNewActivity.this, RetailerCategoryActivity.class);
+                            intent.putExtra("user", user);
                             startActivity(intent);
 
                             loadingBar.dismiss();
