@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.livemart.Model.Users;
+import com.example.livemart.Prevalent.Prevalent;
 import com.example.livemart.Retailer.RetailerCategoryActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -147,7 +148,8 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Welcome "+usersData.getName()+", you are logged in Successfully...", Toast.LENGTH_SHORT).show();
                                     loadingBar.dismiss();
 
-                                    Intent intent = new Intent(LoginActivity.this, RetailerCategoryActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    Prevalent.currentOnlineUser = usersData;
                                     startActivity(intent);
                                 }
                                 else if (parentDbName.equals("Retailer"))
@@ -155,8 +157,9 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Welcome "+usersData.getName()+", you are logged in Successfully...", Toast.LENGTH_SHORT).show();
                                     loadingBar.dismiss();
 
-                                    Intent intent = new Intent(LoginActivity.this, RetailerCategoryActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     intent.putExtra("user", usersData.getUser());
+                                    Prevalent.currentOnlineUser = usersData;
                                     startActivity(intent);
                                 }
                                 else {
