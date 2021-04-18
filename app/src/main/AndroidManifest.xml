@@ -16,7 +16,9 @@
         android:theme="@style/Theme.LiveMART"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".Retailer.RetailerAddNewActivity"></activity>
+        <activity android:name=".CartActivity"></activity>
+        <activity android:name=".ProductDetailsActivity" />
+        <activity android:name=".Retailer.RetailerAddNewActivity" />
         <activity android:name=".Retailer.RetailerCategoryActivity" />
         <activity android:name=".RegisterActivity" />
 
