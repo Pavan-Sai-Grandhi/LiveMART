@@ -46,13 +46,6 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
-            ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products").child("Retailer");
-        }
-        else {
-            ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products").child("Wholesaler");
-        }
-
         Paper.init(this);
 
 
@@ -77,9 +70,23 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
+        if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
+            ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products").child("Retailer");
+            navigationView.inflateMenu(R.menu.activity_main_drawer);
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+        else if(Prevalent.currentOnlineUser.getUser().equals("Retailer")) {
+            ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products").child("Wholesaler");
+            navigationView.inflateMenu(R.menu.retailer_menu);
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+        else {
+            ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products").child("Wholesaler");
+            navigationView.inflateMenu(R.menu.wholesaler_menu);
+            navigationView.setNavigationItemSelectedListener(this);
+        }
 
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
