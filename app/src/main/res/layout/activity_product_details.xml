@@ -75,6 +75,7 @@
         android:background="@color/design_default_color_primary_dark"
         android:layout_margin="15dp"
         android:layout_alignParentBottom="true"
+        android:text="Add to Cart"
         android:textColor="@color/white"
         android:textSize="18dp"
         />

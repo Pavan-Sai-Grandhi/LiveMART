@@ -58,8 +58,8 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(HomeActivity.this,CartActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -123,6 +123,16 @@ public class HomeActivity extends AppCompatActivity
                         holder.txtProductDescription.setText(model.getDescription());
                         holder.txtProductPrice.setText("Price = Rs." + model.getPrice());
                         Picasso.get().load(model.getImage()).into(holder.imageView);
+
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view)
+                            {
+                                    Intent intent = new Intent(HomeActivity.this, ProductDetailsActivity.class);
+                                    intent.putExtra("pid", model.getPid());
+                                    startActivity(intent);
+                            }
+                        });
                     }
 
                     @NonNull
@@ -183,7 +193,8 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_cart)
         {
-
+            Intent intent = new Intent(HomeActivity.this,CartActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.nav_orders)
         {
