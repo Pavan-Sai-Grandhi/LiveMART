@@ -200,6 +200,11 @@ public class HomeActivity extends AppCompatActivity
         {
 
         }
+        else if (id == R.id.nav_add)
+        {
+            Intent intent = new Intent(HomeActivity.this,UpdateItemsActivity.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_categories)
         {
 

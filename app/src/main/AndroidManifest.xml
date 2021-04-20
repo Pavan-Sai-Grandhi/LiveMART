@@ -15,9 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LiveMART"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m"
-        tools:replace="android:theme">
-        <activity android:name=".ConfirmFinalOrderActivity"></activity>
+        tools:replace="android:theme"
+        tools:targetApi="m">
+        <activity android:name=".UpdateItemsActivity"></activity>
+        <activity android:name=".ConfirmFinalOrderActivity" />
         <activity android:name=".NewOrdersActivity" />
         <activity android:name=".UserProductsActivity" />
         <activity

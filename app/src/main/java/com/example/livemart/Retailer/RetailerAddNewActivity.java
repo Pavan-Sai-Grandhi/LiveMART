@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.livemart.HomeActivity;
+import com.example.livemart.Prevalent.Prevalent;
 import com.example.livemart.R;
+import com.example.livemart.UpdateItemsActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,7 +35,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class RetailerAddNewActivity extends AppCompatActivity {
-    private String CategoryName, Description, Price, Pname, PQuantity, saveCurrentDate, saveCurrentTime;
+    private String CategoryName, Description, Price, Pname, PQuantity, saveCurrentDate, saveCurrentTime, pid;
     private Button AddNewProductButton;
     private ImageView InputProductImage;
     private EditText InputProductName, InputProductDescription, InputProductPrice, InputProductQuantity;
@@ -40,7 +43,6 @@ public class RetailerAddNewActivity extends AppCompatActivity {
     private String productRandomKey, downloadImageUrl;
     private StorageReference ProductImagesRef;
     private DatabaseReference ProductsRef;
-    private String user;
 
     private static final int GalleryPick = 1;
     private Uri ImageUri;
@@ -51,7 +53,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_retailer_add_new);
 
         CategoryName = getIntent().getExtras().get("category").toString();
-        user = getIntent().getExtras().get("user").toString();
+        pid = getIntent().getExtras().get("pid").toString();
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
@@ -136,7 +138,13 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calendar.getTime());
 
-        productRandomKey = saveCurrentDate + saveCurrentTime;
+        if(pid.equals("")){
+            productRandomKey = saveCurrentDate + saveCurrentTime;
+        }
+        else {
+            productRandomKey = pid;
+        }
+
 
 
         final StorageReference filePath = ProductImagesRef.child(ImageUri.getLastPathSegment() + productRandomKey + ".jpg");
@@ -201,15 +209,14 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         productMap.put("pname", Pname);
         productMap.put("pquantity", PQuantity);
 
-        ProductsRef.child(user).child(productRandomKey).updateChildren(productMap)
+        ProductsRef.child(Prevalent.currentOnlineUser.getUser()).child(productRandomKey).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)
                     {
                         if (task.isSuccessful())
                         {
-                            Intent intent = new Intent(RetailerAddNewActivity.this, RetailerCategoryActivity.class);
-                            intent.putExtra("user", user);
+                            Intent intent = new Intent(RetailerAddNewActivity.this, HomeActivity.class);
                             startActivity(intent);
 
                             loadingBar.dismiss();
