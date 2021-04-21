@@ -25,6 +25,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
 {
     private EditText nameEditText, phoneEditText, addressEditText, cityEditText;
     private Button confirmOrderBtn;
+    private String orderRandomKey, saveCurrentDate, saveCurrentTime;
 
     private String totalAmount = "";
 
@@ -79,18 +80,31 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
 
     private void ConfirmOrder()
     {
-        final String saveCurrentDate, saveCurrentTime;
 
         Calendar calForDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
         saveCurrentDate = currentDate.format(calForDate.getTime());
 
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-        saveCurrentTime = currentDate.format(calForDate.getTime());
+        saveCurrentTime = currentTime.format(calForDate.getTime());
 
-        final DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference()
-                .child("Orders")
-                .child(Prevalent.currentOnlineUser.getPhone());
+        orderRandomKey = saveCurrentDate + saveCurrentTime;
+        final DatabaseReference ordersRef;
+
+        if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
+            ordersRef = FirebaseDatabase.getInstance().getReference()
+                    .child("Orders")
+                    .child("Retailer")
+                    .child(orderRandomKey)
+                    .child(Prevalent.currentOnlineUser.getPhone());
+        }
+        else {
+            ordersRef = FirebaseDatabase.getInstance().getReference()
+                    .child("Orders")
+                    .child("Wholesaler")
+                    .child(orderRandomKey)
+                    .child(Prevalent.currentOnlineUser.getPhone());
+        }
 
         HashMap<String, Object> ordersMap = new HashMap<>();
         ordersMap.put("totalAmount", totalAmount);
@@ -110,7 +124,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
                 {
                     FirebaseDatabase.getInstance().getReference()
                             .child("Cart List")
-                            .child("User View")
+                            .child(Prevalent.currentOnlineUser.getUser())
                             .child(Prevalent.currentOnlineUser.getPhone())
                             .removeValue()
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
