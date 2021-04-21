@@ -54,10 +54,15 @@ public class CartActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
-                intent.putExtra("Total Price", String.valueOf(overTotalPrice));
-                startActivity(intent);
-                finish();
+                if (overTotalPrice!=0){
+                    Intent intent = new Intent(CartActivity.this, ConfirmFinalOrderActivity.class);
+                    intent.putExtra("Total Price", String.valueOf(overTotalPrice));
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(CartActivity.this,"No items in the cart",Toast.LENGTH_SHORT);
+                }
             }
         });
     }
@@ -125,9 +130,6 @@ public class CartActivity extends AppCompatActivity
                                                     if (task.isSuccessful())
                                                     {
                                                         Toast.makeText(CartActivity.this, "Item removed successfully.", Toast.LENGTH_SHORT).show();
-
-                                                        Intent intent = new Intent(CartActivity.this, HomeActivity.class);
-                                                        startActivity(intent);
                                                     }
                                                 }
                                             });
