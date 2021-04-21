@@ -29,7 +29,6 @@
         android:layout_marginLeft="20dp"
         android:background="@drawable/join_now"
         android:padding="10dp"
-        android:inputType="number"
         android:hint="Your Name"
         android:textColorHint="@color/black"
         />
@@ -44,6 +43,7 @@
         android:padding="10dp"
         android:layout_marginLeft="20dp"
         android:hint="Your Phone Number"
+        android:inputType="number"
         android:textColorHint="@color/black"
 
         />

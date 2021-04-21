@@ -10,7 +10,7 @@
         android:id="@+id/r2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/design_default_color_primary_dark"
+        android:background="@color/orange"
         android:layout_alignParentTop="true">
 
         <TextView
