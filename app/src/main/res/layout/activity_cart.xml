@@ -11,7 +11,7 @@
         android:id="@+id/r111"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/design_default_color_primary_dark"
+        android:background="@color/orange"
         android:layout_alignParentTop="true">
 
         <TextView
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/design_default_color_primary_dark"
+        android:background="@color/orange"
         android:text="Next"
         android:textColor="@color/white"
         android:textSize="20dp"

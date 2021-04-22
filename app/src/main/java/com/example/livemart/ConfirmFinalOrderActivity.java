@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.livemart.Prevalent.Prevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,6 +27,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
     private EditText nameEditText, phoneEditText, addressEditText, cityEditText;
     private Button confirmOrderBtn;
     private String orderRandomKey, saveCurrentDate, saveCurrentTime;
+    private DatabaseReference cartListRef;
 
     private String totalAmount = "";
 
@@ -35,7 +37,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         setContentView(R.layout.activity_confirm_final_order);
 
         totalAmount = getIntent().getStringExtra("Total Price");
-        Toast.makeText(this, "Total Price =  $ " + totalAmount, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Total Price =  Rs. " + totalAmount, Toast.LENGTH_SHORT).show();
 
 
         confirmOrderBtn = (Button) findViewById(R.id.confirm_final_order_btn);
@@ -44,6 +46,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         addressEditText = (EditText) findViewById(R.id.shippment_address);
         cityEditText = (EditText) findViewById(R.id.shippment_city);
 
+        cartListRef =  FirebaseDatabase.getInstance().getReference().child("Order Details");
 
         confirmOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,23 +93,26 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
 
         orderRandomKey = saveCurrentDate + saveCurrentTime;
         final DatabaseReference ordersRef;
+        final DatabaseReference userOrder = FirebaseDatabase.getInstance().getReference()
+                .child("UOrders")
+                .child(Prevalent.currentOnlineUser.getPhone()).child(orderRandomKey);
 
         if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
             ordersRef = FirebaseDatabase.getInstance().getReference()
                     .child("Orders")
                     .child("Retailer")
-                    .child(orderRandomKey)
-                    .child(Prevalent.currentOnlineUser.getPhone());
+                    .child(orderRandomKey);
         }
         else {
             ordersRef = FirebaseDatabase.getInstance().getReference()
                     .child("Orders")
                     .child("Wholesaler")
-                    .child(orderRandomKey)
-                    .child(Prevalent.currentOnlineUser.getPhone());
+                    .child(orderRandomKey);
         }
 
         HashMap<String, Object> ordersMap = new HashMap<>();
+        ordersMap.put("pid", orderRandomKey);
+        ordersMap.put("userPhone", Prevalent.currentOnlineUser.getPhone());
         ordersMap.put("totalAmount", totalAmount);
         ordersMap.put("name", nameEditText.getText().toString());
         ordersMap.put("phone", phoneEditText.getText().toString());
@@ -122,8 +128,15 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
             {
                 if (task.isSuccessful())
                 {
-                    FirebaseDatabase.getInstance().getReference()
-                            .child("Cart List")
+                    Task<DataSnapshot> snapshot = cartListRef
+                            .child(Prevalent.currentOnlineUser.getUser())
+                            .child(Prevalent.currentOnlineUser.getPhone()).get();
+
+                    cartListRef
+                            .child(Prevalent.currentOnlineUser.getUser()+" View")
+                            .child(Prevalent.currentOnlineUser.getPhone())
+                            .child(orderRandomKey);
+                    cartListRef
                             .child(Prevalent.currentOnlineUser.getUser())
                             .child(Prevalent.currentOnlineUser.getPhone())
                             .removeValue()
@@ -142,6 +155,17 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
                                     }
                                 }
                             });
+                }
+            }
+        });
+
+        userOrder.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if (task.isSuccessful())
+                {
+                   Toast.makeText(ConfirmFinalOrderActivity.this, "Wait for order updates",Toast.LENGTH_SHORT).show();
                 }
             }
         });
