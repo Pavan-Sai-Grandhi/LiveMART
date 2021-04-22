@@ -15,7 +15,6 @@ import com.example.livemart.ViewHolder.ProductViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -206,6 +205,11 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.nav_orders)
         {
 
+        }
+        else if (id == R.id.nav_search)
+        {
+            Intent intent = new Intent(HomeActivity.this, SearchProductsActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.nav_add)
         {

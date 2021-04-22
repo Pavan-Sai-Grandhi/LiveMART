@@ -1,19 +1,20 @@
 package com.example.livemart.Model;
 
 public class Users {
-    private String name, phone, password, address, user;
+    private String name, phone, password, address, user, dob;
 
     public Users()
     {
 
     }
 
-    public Users(String name, String phone, String password, String image, String address, String user) {
+    public Users(String name, String phone, String password, String image, String address, String user, String dob) {
         this.name = name;
         this.phone = phone;
         this.password = password;
         this.address = address;
         this.user = user;
+        this.dob = dob;
     }
 
     public String getName() {
@@ -55,4 +56,8 @@ public class Users {
     public void setUser(String user) {
         this.user = user;
     }
+
+    public String getDob() { return dob; }
+
+    public void setDob(String dob) {this.dob = dob; }
 }
