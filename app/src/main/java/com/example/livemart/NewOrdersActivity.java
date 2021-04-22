@@ -64,8 +64,9 @@ public class NewOrdersActivity extends AppCompatActivity
                             @Override
                             public void onClick(View view)
                             {
+                                String phone = model.getUserPhone();
                                 Intent intent = new Intent(NewOrdersActivity.this, UserProductsActivity.class);
-                                intent.putExtra("uPhone", model.getPhone());
+                                intent.putExtra("uPhone", phone);
                                 startActivity(intent);
                             }
                         });
