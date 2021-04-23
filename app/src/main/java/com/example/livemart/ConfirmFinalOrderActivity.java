@@ -15,8 +15,10 @@ import com.example.livemart.Prevalent.Prevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,7 +48,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         addressEditText = (EditText) findViewById(R.id.shippment_address);
         cityEditText = (EditText) findViewById(R.id.shippment_city);
 
-        cartListRef =  FirebaseDatabase.getInstance().getReference().child("Order Details");
+        cartListRef =  FirebaseDatabase.getInstance().getReference().child("Cart List");
 
         confirmOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,14 +130,32 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
             {
                 if (task.isSuccessful())
                 {
-                    Task<DataSnapshot> snapshot = cartListRef
-                            .child(Prevalent.currentOnlineUser.getUser())
-                            .child(Prevalent.currentOnlineUser.getPhone()).get();
-
-                    cartListRef
-                            .child(Prevalent.currentOnlineUser.getUser()+" View")
+                    final DatabaseReference itemRef = FirebaseDatabase.getInstance().getReference()
+                            .child(Prevalent.currentOnlineUser.getUser()+" items")
                             .child(Prevalent.currentOnlineUser.getPhone())
                             .child(orderRandomKey);
+
+                    DatabaseReference cartRef = cartListRef.child(Prevalent.currentOnlineUser.getUser())
+                            .child(Prevalent.currentOnlineUser.getPhone());
+
+                    cartRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot itemCode : snapshot.getChildren()){
+                                String itemCodeKey = itemCode.getKey();
+                                for (DataSnapshot itemDetails : itemCode.getChildren()) {
+                                    String data = itemDetails.getValue(String.class);
+                                    itemRef.child(itemCodeKey).child(itemDetails.getKey()).setValue(data);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                     cartListRef
                             .child(Prevalent.currentOnlineUser.getUser())
                             .child(Prevalent.currentOnlineUser.getPhone())

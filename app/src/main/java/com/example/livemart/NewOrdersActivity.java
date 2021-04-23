@@ -65,8 +65,10 @@ public class NewOrdersActivity extends AppCompatActivity
                             public void onClick(View view)
                             {
                                 String phone = model.getUserPhone();
+                                String pid = model.getPid();
                                 Intent intent = new Intent(NewOrdersActivity.this, UserProductsActivity.class);
                                 intent.putExtra("uPhone", phone);
+                                intent.putExtra("pid", pid);
                                 startActivity(intent);
                             }
                         });

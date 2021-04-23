@@ -20,10 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UserProductsActivity extends AppCompatActivity {
     private RecyclerView productsList;
-//    RecyclerView.LayoutManager layoutManager;
     private DatabaseReference cartListRef;
 
-    private String userPhone;
+    private String userPhone, pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +30,19 @@ public class UserProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_products);
 
         userPhone = getIntent().getExtras().get("uPhone").toString();
-
+        pid = getIntent().getExtras().get("pid").toString();
 
         productsList = findViewById(R.id.products_list);
         productsList.setHasFixedSize(true);
-//        layoutManager = new LinearLayoutManager(this);
-//        productsList.setLayoutManager(layoutManager);
+
 
         if(Prevalent.currentOnlineUser.getUser().equals("Retailer")){
             cartListRef = FirebaseDatabase.getInstance().getReference()
-                    .child("Cart List").child("Customer View").child(userPhone);
+                            .child("Customer items").child(userPhone).child(pid);
         }
         else {
             cartListRef = FirebaseDatabase.getInstance().getReference()
-                    .child("Cart List").child("Retailer View").child(userPhone);
+                            .child("Retailer items").child(userPhone).child(pid);
         }
     }
 
