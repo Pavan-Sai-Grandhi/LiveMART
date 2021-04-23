@@ -89,7 +89,7 @@ public class ProductDetailsActivity extends AppCompatActivity
         cartMap.put("discount", "");
 
         cartListRef.child(Prevalent.currentOnlineUser.getUser()).child(Prevalent.currentOnlineUser.getPhone())
-                .child("Products").child(productID)
+                .child(productID)
                 .updateChildren(cartMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -97,7 +97,7 @@ public class ProductDetailsActivity extends AppCompatActivity
                     {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(ProductDetailsActivity.this, "Added to Cart List.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProductDetailsActivity.this, "Congratulations your order is placed", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
                             startActivity(intent);

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.livemart.Model.Orders;
 import com.example.livemart.Model.Users;
 import com.example.livemart.Prevalent.Prevalent;
 import com.example.livemart.Retailer.RetailerCategoryActivity;

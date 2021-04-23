@@ -216,6 +216,11 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(HomeActivity.this,UpdateItemsActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.nav_received)
+        {
+            Intent intent = new Intent(HomeActivity.this,NewOrdersActivity.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_categories)
         {
 
