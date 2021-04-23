@@ -17,7 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme"
         tools:targetApi="m">
-        <activity android:name=".UpdateItemsActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".SearchProductsActivity" />
+        <activity android:name=".UpdateItemsActivity" />
         <activity android:name=".ConfirmFinalOrderActivity" />
         <activity android:name=".NewOrdersActivity" />
         <activity android:name=".UserProductsActivity" />

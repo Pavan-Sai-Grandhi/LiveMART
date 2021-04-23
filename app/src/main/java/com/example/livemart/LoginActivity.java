@@ -40,10 +40,10 @@ public class LoginActivity extends AppCompatActivity {
     private EditText InputPhoneNumber, InputPassword, EnterOtp;
     private Button LoginButton, SendOtp, VerifyOtp;
     private ProgressDialog loadingBar;
-    private TextView Customer, Retailer, Wholesaler;
+    private TextView Customer, Retailer, Wholesaler, ForgotPassword;
     private ImageView tick;
 
-    private String parentDbName = "Customer", verificationId, verificationStatus="Not Verified" ;
+    private String parentDbName = "Customer", verificationId, verificationStatus="Verified" ;
 
     private FirebaseAuth mAuth;
 
@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         Customer = findViewById(R.id.Customer);
         Retailer = findViewById(R.id.Retailer);
         Wholesaler = findViewById(R.id.Wholesaler);
+        ForgotPassword = findViewById(R.id.forget_password_link);
         tick = findViewById(R.id.tick);
 
         loadingBar = new ProgressDialog(this);
@@ -99,6 +100,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+        ForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -198,11 +207,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            // when we receive the OTP it
-            // contains a unique id which
-            // we are storing in our string
-            // which we have already created.
             verificationId = s;
+            Toast.makeText(LoginActivity.this,"OTP Sent to the given Number", Toast.LENGTH_SHORT).show();
         }
 
         // this method is called when user

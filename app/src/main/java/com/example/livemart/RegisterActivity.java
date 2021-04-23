@@ -40,7 +40,7 @@ import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity implements LocationListener {
     private Button CreateAccountButton;
-    private EditText InputName, InputPhoneNumber, InputPassword, InputRetypePassword;
+    private EditText InputName, InputPhoneNumber, InputPassword, InputRetypePassword, SecurityQuestion;
     private ProgressDialog loadingBar;
     private RadioGroup InputUserType;
     private RadioButton radioButton;
@@ -59,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         InputPhoneNumber = findViewById(R.id.register_phone_number_input);
         InputRetypePassword = findViewById(R.id.register_re_enter_password_input);
         InputUserType = findViewById(R.id.type_of_user);
+        SecurityQuestion = findViewById(R.id.security_question);
         loadingBar = new ProgressDialog(this);
 
         CreateAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +111,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         radioButton = findViewById(radioID);
         String address = textView_location.getText().toString();
         String user = radioButton.getText().toString();
+        String dob = SecurityQuestion.getText().toString();
 
         if (TextUtils.isEmpty(name))
         {
@@ -135,6 +137,10 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         {
             Toast.makeText(this, "Please select type of user...", Toast.LENGTH_SHORT).show();
         }
+        else if (TextUtils.isEmpty(dob))
+        {
+            Toast.makeText(this, "Please enter your DOB...", Toast.LENGTH_SHORT).show();
+        }
         else
         {
             loadingBar.setTitle("Create Account");
@@ -142,11 +148,11 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
-            ValidatePhoneNumber(name, phone, password, address, user);
+            ValidatePhoneNumber(name, phone, password, address, user, dob);
         }
     }
 
-    private void ValidatePhoneNumber(String name, String phone, String password, String address, String user) {
+    private void ValidatePhoneNumber(String name, String phone, String password, String address, String user, String dob) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -162,6 +168,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
                     userdataMap.put("name", name);
                     userdataMap.put("address", address);
                     userdataMap.put("user", user);
+                    userdataMap.put("dob", dob);
 
                     RootRef.child("Users").child(phone).updateChildren(userdataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {

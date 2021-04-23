@@ -7,6 +7,31 @@
     android:background="@drawable/back1"
     tools:context=".RegisterActivity">
 
+    <EditText
+        android:id="@+id/security_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_password_input"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/join_now"
+        android:hint="Date of Birth (dd/mm/yyyy)"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="19sp" />
+
+    <ImageView
+        android:id="@+id/login_applogo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="160dp"
+        android:src="@drawable/applogo" />
+
     <ImageView
         android:id="@+id/register_applogo"
         android:layout_width="300dp"
@@ -25,7 +50,7 @@
         android:background="@drawable/join_now"
         android:hint="Name"
         android:inputType="text"
-        android:padding="15dp"
+        android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="19sp" />
@@ -36,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/register_username_input"
         android:background="@drawable/join_now"
-        android:padding="15dp"
+        android:padding="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:hint="Phone Number"
@@ -54,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/register_phone_number_input"
         android:background="@drawable/join_now"
-        android:padding="15dp"
+        android:padding="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="6dp"
@@ -77,7 +102,7 @@
         android:background="@drawable/join_now"
         android:hint="retype Password"
         android:inputType="textPassword"
-        android:padding="15dp"
+        android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="19sp" />
@@ -89,7 +114,7 @@
         android:layout_below="@+id/register_password_input"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="275dp"
+        android:layout_marginTop="301dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/button"
         android:text="Create Account"
@@ -115,17 +140,17 @@
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_re_enter_password_input"
+        android:layout_below="@+id/security_question"
         android:layout_alignParentStart="true"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="4dp"
         android:text="Type of user"
         android:textColor="@color/black"
         android:textSize="25dp" />
-
 
     <TextView
         android:id="@+id/current_location"
@@ -142,20 +167,22 @@
         android:id="@+id/type_of_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_re_enter_password_input"
 
-        android:layout_marginTop="60dp"
+        android:layout_below="@+id/security_question"
+        android:layout_alignParentEnd="true"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="57dp"
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Customer"
-            android:textStyle="bold"
             android:layout_marginRight="10dp"
+            android:text="Customer"
             android:textColor="@color/black"
+            android:textStyle="bold"
 
             />
 
@@ -166,19 +193,17 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="Retailer"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/Wholesaler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wholesaler"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textStyle="bold" />
     </RadioGroup>
-
-
 
 
 </RelativeLayout>
