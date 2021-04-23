@@ -22,7 +22,7 @@ public class UserProductsActivity extends AppCompatActivity {
     private RecyclerView productsList;
     private DatabaseReference cartListRef;
 
-    private String userPhone, pid;
+    private String userPhone, pid, ToO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +31,22 @@ public class UserProductsActivity extends AppCompatActivity {
 
         userPhone = getIntent().getExtras().get("uPhone").toString();
         pid = getIntent().getExtras().get("pid").toString();
+        ToO = getIntent().getExtras().get("ToO").toString();
 
         productsList = findViewById(R.id.products_list);
         productsList.setHasFixedSize(true);
 
-
-        if(Prevalent.currentOnlineUser.getUser().equals("Retailer")){
+        if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
+            cartListRef = FirebaseDatabase.getInstance().getReference()
+                    .child("Customer items").child(Prevalent.currentOnlineUser.getPhone()).child(pid);
+        }
+        else if(Prevalent.currentOnlineUser.getUser().equals("Retailer")&&(ToO.equals("1"))){
             cartListRef = FirebaseDatabase.getInstance().getReference()
                             .child("Customer items").child(userPhone).child(pid);
+        }
+        else if(Prevalent.currentOnlineUser.getUser().equals("Retailer")&&(ToO.equals("0"))){
+            cartListRef = FirebaseDatabase.getInstance().getReference()
+                    .child("Retailer items").child(Prevalent.currentOnlineUser.getPhone()).child(pid);
         }
         else {
             cartListRef = FirebaseDatabase.getInstance().getReference()
