@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.livemart.Model.Orders;
 import com.example.livemart.Prevalent.Prevalent;
@@ -26,6 +27,7 @@ public class NewOrdersActivity extends AppCompatActivity
 {
     private RecyclerView ordersList;
     private DatabaseReference ordersRef;
+    private String ToO;
 
 
     @Override
@@ -33,7 +35,14 @@ public class NewOrdersActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_orders);
 
-        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getUser());
+        ToO = getIntent().getExtras().get("ToO").toString();
+
+        if(ToO.equals("0")){
+            ordersRef = FirebaseDatabase.getInstance().getReference().child("UOrders").child(Prevalent.currentOnlineUser.getPhone());
+        }
+        else{
+            ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Prevalent.currentOnlineUser.getUser());
+        }
 
         ordersList = findViewById(R.id.orders_list);
         ordersList.setLayoutManager(new LinearLayoutManager(this));
@@ -54,8 +63,15 @@ public class NewOrdersActivity extends AppCompatActivity
                     @Override
                     protected void onBindViewHolder(@NonNull OrdersViewHolder holder, final int position, @NonNull final Orders model)
                     {
-                        holder.userName.setText("Name: " + model.getName());
-                        holder.userPhoneNumber.setText("Phone: " + model.getPhone());
+                        if(ToO.equals("0")){
+                            holder.userName.setText("Shipping Status : "+model.getState());
+                            holder.userPhoneNumber.setVisibility(View.INVISIBLE);
+                        }
+                        else {
+                            holder.userName.setText("Name: " + model.getName());
+                            holder.userPhoneNumber.setText("Phone: " + model.getPhone());
+                        }
+
                         holder.userTotalPrice.setText("Total Amount =  Rs." + model.getTotalAmount());
                         holder.userDateTime.setText("Order at: " + model.getDate() + "  " + model.getTime());
                         holder.userShippingAddress.setText("Shipping Address: " + model.getAddress() + ", " + model.getCity());
@@ -69,6 +85,7 @@ public class NewOrdersActivity extends AppCompatActivity
                                 Intent intent = new Intent(NewOrdersActivity.this, UserProductsActivity.class);
                                 intent.putExtra("uPhone", phone);
                                 intent.putExtra("pid", pid);
+                                intent.putExtra("ToO", ToO);
                                 startActivity(intent);
                             }
                         });

@@ -204,7 +204,9 @@ public class HomeActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_orders)
         {
-
+            Intent intent = new Intent(HomeActivity.this,NewOrdersActivity.class);
+            intent.putExtra("ToO", "0");
+            startActivity(intent);
         }
         else if (id == R.id.nav_search)
         {
@@ -219,6 +221,7 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.nav_received)
         {
             Intent intent = new Intent(HomeActivity.this,NewOrdersActivity.class);
+            intent.putExtra("ToO", "1");
             startActivity(intent);
         }
         else if (id == R.id.nav_categories)
