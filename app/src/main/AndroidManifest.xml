@@ -18,6 +18,8 @@
         tools:replace="android:theme"
         tools:targetApi="m">
 
+        <activity android:name=".SearchProductsActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".UpdateItemsActivity" />
         <activity android:name=".ConfirmFinalOrderActivity" />
         <activity android:name=".NewOrdersActivity" />

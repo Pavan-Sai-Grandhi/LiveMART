@@ -19,27 +19,29 @@
             android:id="@+id/search_product_name"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:hint="Product Name"
             android:layout_marginTop="8dp"
-            android:textStyle="bold"
             android:background="@color/white"
+            android:hint="Product Name"
+            android:layout_marginLeft="15dp"
             android:padding="9dp"
-            android:textSize="18dp"
             android:textColorHint="@color/orange"
-            />
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/search_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:textStyle="bold"
-            android:padding="9dp"
-            android:textSize="18dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="-10dp"
             android:layout_centerInParent="true"
-            android:background="@color/orange"
+            android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/search_product_name"
+            android:background="@color/orange"
+            android:elevation="6dp"
+            android:text="Search"
             android:textColor="@color/white"
-            />
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

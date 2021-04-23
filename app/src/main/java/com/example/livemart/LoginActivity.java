@@ -167,8 +167,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // if the code is correct and the task is successful
-                            // we are sending our user to new activit
                             Toast.makeText(LoginActivity.this, "OTP verification Successful", Toast.LENGTH_SHORT).show();
                             VerifyOtp.setVisibility(View.INVISIBLE);
                             tick.setVisibility(View.VISIBLE);
