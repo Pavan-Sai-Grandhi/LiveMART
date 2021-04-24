@@ -49,6 +49,7 @@ public class UserProductsActivity extends AppCompatActivity {
         if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
             cartListRef = FirebaseDatabase.getInstance().getReference()
                     .child("Customer items").child(Prevalent.currentOnlineUser.getPhone()).child(pid);
+            ConfirmButton.setVisibility(View.INVISIBLE);
         }
         else if(Prevalent.currentOnlineUser.getUser().equals("Retailer")&&(ToO.equals("1"))){
             cartListRef = FirebaseDatabase.getInstance().getReference()
@@ -57,6 +58,7 @@ public class UserProductsActivity extends AppCompatActivity {
         else if(Prevalent.currentOnlineUser.getUser().equals("Retailer")&&(ToO.equals("0"))){
             cartListRef = FirebaseDatabase.getInstance().getReference()
                     .child("Retailer items").child(Prevalent.currentOnlineUser.getPhone()).child(pid);
+            ConfirmButton.setVisibility(View.INVISIBLE);
         }
         else {
             cartListRef = FirebaseDatabase.getInstance().getReference()
@@ -87,7 +89,7 @@ public class UserProductsActivity extends AppCompatActivity {
             {
 
                 holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
-                holder.txtProductPrice.setText("Price " + model.getPrice() + "$");
+                holder.txtProductPrice.setText("Price: Rs." + model.getPrice());
                 holder.txtProductName.setText(model.getPname());
 
                 ConfirmButton.setOnClickListener(new View.OnClickListener() {
