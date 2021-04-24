@@ -47,7 +47,6 @@ public class SearchProductsActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 SearchInput = inputText.getText().toString();
-
                 onStart();
             }
         });

@@ -208,6 +208,11 @@ public class HomeActivity extends AppCompatActivity
             intent.putExtra("ToO", "0");
             startActivity(intent);
         }
+        else if (id == R.id.nav_feedback)
+        {
+            Intent intent = new Intent(HomeActivity.this,FeedbackActivity.class);
+            startActivity(intent);
+        }
         else if (id == R.id.nav_search)
         {
             Intent intent = new Intent(HomeActivity.this, SearchProductsActivity.class);
@@ -223,10 +228,6 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(HomeActivity.this,NewOrdersActivity.class);
             intent.putExtra("ToO", "1");
             startActivity(intent);
-        }
-        else if (id == R.id.nav_categories)
-        {
-
         }
         else if (id == R.id.nav_logout)
         {

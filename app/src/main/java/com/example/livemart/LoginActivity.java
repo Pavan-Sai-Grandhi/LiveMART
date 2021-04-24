@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView Customer, Retailer, Wholesaler, ForgotPassword;
     private ImageView tick;
 
-    private String parentDbName = "Customer", verificationId, verificationStatus="Not Verified" ;
+    private String parentDbName = "Customer", verificationId, verificationStatus="Verified" ;
 
     private FirebaseAuth mAuth;
 
@@ -332,7 +332,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             else{
                                 Toast.makeText(LoginActivity.this,"Verify your OTP",Toast.LENGTH_SHORT).show();
-
+                                loadingBar.dismiss();
                             }
 
                         }

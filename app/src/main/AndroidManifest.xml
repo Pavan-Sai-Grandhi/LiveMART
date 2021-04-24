@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:theme"
         tools:targetApi="m">
-
+        <activity android:name=".FeedbackActivity"></activity>
         <activity android:name=".SearchProductsActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".UpdateItemsActivity" />

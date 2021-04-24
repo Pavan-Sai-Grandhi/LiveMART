@@ -97,7 +97,7 @@ public class ProductDetailsActivity extends AppCompatActivity
                     {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(ProductDetailsActivity.this, "Congratulations your order is placed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProductDetailsActivity.this, "Items added to cart successfully", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
                             startActivity(intent);
@@ -124,7 +124,7 @@ public class ProductDetailsActivity extends AppCompatActivity
                     Products products = dataSnapshot.getValue(Products.class);
 
                     productName.setText(products.getPname());
-                    productPrice.setText("Rs."+products.getPrice());
+                    productPrice.setText(products.getPrice());
                     productDescription.setText(products.getDescription());
                     Picasso.get().load(products.getImage()).into(productImage);
                     if(Integer.parseInt(products.getPquantity())>0){

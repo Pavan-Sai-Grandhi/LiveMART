@@ -73,7 +73,6 @@ public class RetailerAddNewActivity extends AppCompatActivity {
             image = getIntent().getExtras().get("image").toString();
             InputProductName.setText(pname);
             InputProductDescription.setText(description);
-            Picasso.get().load(image).into(InputProductImage);
             AddNewProductButton.setVisibility(View.INVISIBLE);
             UpdateProduct.setVisibility(View.VISIBLE);
         }
@@ -150,7 +149,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
     private void StoreProductInformation()
     {
         loadingBar.setTitle("Add New Product");
-        loadingBar.setMessage("Dear Admin, please wait while we are adding the new product.");
+        loadingBar.setMessage("Dear "+Prevalent.currentOnlineUser.getName()+", please wait while we are adding the new product.");
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.show();
 
