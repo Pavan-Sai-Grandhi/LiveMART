@@ -9,20 +9,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.livemart.Model.Cart;
+import com.example.livemart.Model.Products;
 import com.example.livemart.Prevalent.Prevalent;
 import com.example.livemart.ViewHolder.CartViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class UserProductsActivity extends AppCompatActivity {
     private RecyclerView productsList;
-    private DatabaseReference cartListRef;
+    private DatabaseReference cartListRef, productUpdateRef;
 
     private String userPhone, pid, ToO;
+    private Button ConfirmButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +39,12 @@ public class UserProductsActivity extends AppCompatActivity {
         userPhone = getIntent().getExtras().get("uPhone").toString();
         pid = getIntent().getExtras().get("pid").toString();
         ToO = getIntent().getExtras().get("ToO").toString();
+        ConfirmButton = findViewById(R.id.confirm_process_btn1);
 
         productsList = findViewById(R.id.products_list);
         productsList.setHasFixedSize(true);
+
+        productUpdateRef = FirebaseDatabase.getInstance().getReference().child("Products").child(Prevalent.currentOnlineUser.getUser());
 
         if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
             cartListRef = FirebaseDatabase.getInstance().getReference()
@@ -52,6 +62,12 @@ public class UserProductsActivity extends AppCompatActivity {
             cartListRef = FirebaseDatabase.getInstance().getReference()
                             .child("Retailer items").child(userPhone).child(pid);
         }
+        ConfirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -69,9 +85,29 @@ public class UserProductsActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull Cart model)
             {
+
                 holder.txtProductQuantity.setText("Quantity = " + model.getQuantity());
                 holder.txtProductPrice.setText("Price " + model.getPrice() + "$");
                 holder.txtProductName.setText(model.getPname());
+
+                ConfirmButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ConfirmButton.setVisibility(View.INVISIBLE);
+                        productUpdateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Products productsData = snapshot.child(model.getPid()).getValue(Products.class);
+                                int remainingQuantity = Integer.parseInt(productsData.getPquantity()) - Integer.parseInt(model.getQuantity());
+                                productUpdateRef.child(model.getPid()).child("pquantity").setValue(String.valueOf(remainingQuantity));
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
             }
 
             @NonNull

@@ -95,6 +95,9 @@ public class UpdateItemsActivity extends AppCompatActivity {
                                             Intent intent = new Intent(UpdateItemsActivity.this, RetailerAddNewActivity.class);
                                             intent.putExtra("pid", model.getPid());
                                             intent.putExtra("category", model.getCategory());
+                                            intent.putExtra("pname", model.getPname());
+                                            intent.putExtra("description", model.getDescription());
+                                            intent.putExtra("image", model.getImage());
                                             startActivity(intent);
                                         }
                                         if (i == 1)

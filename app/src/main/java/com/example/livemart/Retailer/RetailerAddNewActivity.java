@@ -29,14 +29,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class RetailerAddNewActivity extends AppCompatActivity {
-    private String CategoryName, Description, Price, Pname, PQuantity, saveCurrentDate, saveCurrentTime, pid;
-    private Button AddNewProductButton;
+    private String CategoryName, Description, Price, Pname, PQuantity, saveCurrentDate, saveCurrentTime, pid, pname, description, image;
+    private Button AddNewProductButton, UpdateProduct;
     private ImageView InputProductImage;
     private EditText InputProductName, InputProductDescription, InputProductPrice, InputProductQuantity;
     private ProgressDialog loadingBar;
@@ -57,6 +58,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         ProductImagesRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
+        UpdateProduct = findViewById(R.id.update_product);
         AddNewProductButton = findViewById(R.id.add_new_product);
         InputProductImage = findViewById(R.id.select_product_image);
         InputProductName = findViewById(R.id.product_name);
@@ -64,6 +66,21 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         InputProductPrice =  findViewById(R.id.product_price);
         InputProductQuantity = findViewById(R.id.product_quantity);
         loadingBar = new ProgressDialog(this);
+
+        if(!pid.equals("")){
+            pname = getIntent().getExtras().get("pname").toString();
+            description = getIntent().getExtras().get("description").toString();
+            image = getIntent().getExtras().get("image").toString();
+            InputProductName.setText(pname);
+            InputProductDescription.setText(description);
+            Picasso.get().load(image).into(InputProductImage);
+            AddNewProductButton.setVisibility(View.INVISIBLE);
+            UpdateProduct.setVisibility(View.VISIBLE);
+        }
+        else{
+            AddNewProductButton.setVisibility(View.VISIBLE);
+            UpdateProduct.setVisibility(View.INVISIBLE);
+        }
 
         InputProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +91,13 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         });
 
         AddNewProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                ValidateProductData();
+            }
+        });
+        UpdateProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
@@ -91,9 +115,9 @@ public class RetailerAddNewActivity extends AppCompatActivity {
 
     private void ValidateProductData()
     {
+        Pname = InputProductName.getText().toString();
         Description = InputProductDescription.getText().toString();
         Price = InputProductPrice.getText().toString();
-        Pname = InputProductName.getText().toString();
         PQuantity = InputProductQuantity.getText().toString();
 
 
