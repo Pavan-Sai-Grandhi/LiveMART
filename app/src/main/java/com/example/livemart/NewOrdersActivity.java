@@ -26,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class NewOrdersActivity extends AppCompatActivity
 {
     private RecyclerView ordersList;
-    private DatabaseReference ordersRef;
+    private DatabaseReference ordersRef, UOrdersRef, ROrdersRef;
     private String ToO;
 
 
@@ -36,6 +36,7 @@ public class NewOrdersActivity extends AppCompatActivity
         setContentView(R.layout.activity_new_orders);
 
         ToO = getIntent().getExtras().get("ToO").toString();
+        UOrdersRef = FirebaseDatabase.getInstance().getReference().child("UOrders");
 
         if(ToO.equals("0")){
             ordersRef = FirebaseDatabase.getInstance().getReference().child("UOrders").child(Prevalent.currentOnlineUser.getPhone());
@@ -89,39 +90,64 @@ public class NewOrdersActivity extends AppCompatActivity
                                 startActivity(intent);
                             }
                         });
-//
-//                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view)
-//                            {
-//                                CharSequence options[] = new CharSequence[]
-//                                        {
-//                                                "Yes",
-//                                                "No"
-//                                        };
-//
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(NewOrdersActivity.this);
-//                                builder.setTitle("Have you shipped this order products ?");
-//
-//                                builder.setItems(options, new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i)
-//                                    {
-//                                        if (i == 0)
-//                                        {
-//                                            String uID = getRef(position).getKey();
-//
-//                                            RemoverOrder(uID);
-//                                        }
-//                                        else
-//                                        {
-//                                            finish();
-//                                        }
-//                                    }
-//                                });
-//                                builder.show();
-//                            }
-//                        });
+
+                        if(ToO.equals("1")){
+                            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    CharSequence options[] = new CharSequence[]
+                                            {
+                                                    "Confirm",
+                                                    "Ship Products",
+                                                    "Out for delivery",
+                                                    "Delivered"
+                                            };
+
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(NewOrdersActivity.this);
+                                    builder.setTitle("Choose the order status :");
+
+                                    builder.setItems(options, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i)
+                                        {
+                                            if(i==0){
+                                                model.setState("Order Confirmed");
+                                                UOrdersRef.child(model.getUserPhone())
+                                                        .child(model.getPid())
+                                                        .child("state")
+                                                        .setValue("Order Confirmed");
+                                                DatabaseReference PQuantity, OQuantity;
+                                            }
+                                            if(i==1){
+                                                model.setState("Products Shipped");
+                                                UOrdersRef.child(model.getUserPhone())
+                                                        .child(model.getPid())
+                                                        .child("state")
+                                                        .setValue("Products Shipped");
+                                            }
+                                            if(i==2){
+                                                model.setState("Out for delivery");
+                                                UOrdersRef
+                                                        .child(model.getUserPhone())
+                                                        .child(model.getPid())
+                                                        .child("state")
+                                                        .setValue("Out for delivery");
+                                            }
+                                            if(i==3){
+                                                ordersRef.child(model.getPid()).removeValue();
+                                                UOrdersRef.child(model.getUserPhone())
+                                                        .child(model.getPid())
+                                                        .child("state")
+                                                        .setValue("Delivered");
+                                            }
+                                        }
+                                    });
+                                    builder.show();
+                                }
+                            });
+                        }
+
                     }
 
                     @NonNull

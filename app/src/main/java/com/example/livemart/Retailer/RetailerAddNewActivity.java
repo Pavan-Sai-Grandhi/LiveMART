@@ -208,6 +208,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
         productMap.put("price", Price);
         productMap.put("pname", Pname);
         productMap.put("pquantity", PQuantity);
+        productMap.put("UserPhone", Prevalent.currentOnlineUser.getPhone());
 
         ProductsRef.child(Prevalent.currentOnlineUser.getUser()).child(productRandomKey).updateChildren(productMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

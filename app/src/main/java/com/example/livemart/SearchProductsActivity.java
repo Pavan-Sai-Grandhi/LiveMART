@@ -64,7 +64,7 @@ public class SearchProductsActivity extends AppCompatActivity
         if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
             FirebaseRecyclerOptions<Products> options =
                     new FirebaseRecyclerOptions.Builder<Products>().setQuery(reference.child("Retailer")
-                            .orderByChild("pname").startAt(SearchInput), Products.class)
+                            .orderByChild("pname").startAt(SearchInput).endAt(SearchInput+"\uf8ff"), Products.class)
                             .build();
 
             FirebaseRecyclerAdapter<Products, ProductViewHolder> adapter =
