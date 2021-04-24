@@ -33,7 +33,7 @@ public class ProductDetailsActivity extends AppCompatActivity
     private Button addToCartButton;
     private ImageView productImage;
     private ElegantNumberButton numberButton;
-    private TextView productPrice, productDescription, productName;
+    private TextView productPrice, productDescription, productName, stock;
     private String productID = "", state = "Normal";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class ProductDetailsActivity extends AppCompatActivity
         setContentView(R.layout.activity_product_details);
 
         productID = getIntent().getStringExtra("pid");
-
+        stock = findViewById(R.id.stock);
         addToCartButton = (Button) findViewById(R.id.pd_add_to_cart_button);
         numberButton = (ElegantNumberButton) findViewById(R.id.number_btn);
         productImage = (ImageView) findViewById(R.id.product_image_details);
@@ -107,14 +107,13 @@ public class ProductDetailsActivity extends AppCompatActivity
     }
 
     private void getProductDetails(String productID) {
-        DatabaseReference productsRef;
+        DatabaseReference productsRef ;
         if(Prevalent.currentOnlineUser.getUser().equals("Customer")){
             productsRef = FirebaseDatabase.getInstance().getReference().child("Products").child("Retailer");
         }
         else{
             productsRef = FirebaseDatabase.getInstance().getReference().child("Products").child("Wholesaler");
         }
-
 
         productsRef.child(productID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -128,6 +127,16 @@ public class ProductDetailsActivity extends AppCompatActivity
                     productPrice.setText(products.getPrice());
                     productDescription.setText(products.getDescription());
                     Picasso.get().load(products.getImage()).into(productImage);
+                    if(Integer.parseInt(products.getPquantity())>0){
+                        stock.setText("In Stock");
+                        addToCartButton.setVisibility(View.VISIBLE);
+                        numberButton.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        stock.setText("Out of stock");
+                        addToCartButton.setVisibility(View.INVISIBLE);
+                        numberButton.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
 

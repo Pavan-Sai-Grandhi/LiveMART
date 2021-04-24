@@ -1,12 +1,13 @@
 package com.example.livemart.Model;
 
 public class Orders {
-    private String name, phone, address, city, state, date, time, totalAmount, pid, userPhone;
+    private String name, phone, address, city, state, date, time, totalAmount, pid, userPhone, mode;
 
     public Orders() {
     }
 
-    public Orders(String name, String phone, String address, String city, String state, String date, String time, String totalAmount, String pid, String userPhone) {
+    public Orders(String name, String phone, String address, String city, String state, String date,
+                  String time, String totalAmount, String pid, String userPhone, String mode) {
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -17,6 +18,7 @@ public class Orders {
         this.totalAmount = totalAmount;
         this.pid = pid;
         this.userPhone = userPhone;
+        this.mode = mode;
     }
 
     public String getName() {
@@ -97,5 +99,13 @@ public class Orders {
 
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }

@@ -98,7 +98,7 @@ public class NewOrdersActivity extends AppCompatActivity
                                 {
                                     CharSequence options[] = new CharSequence[]
                                             {
-                                                    "Confirm",
+                                                    "confirm",
                                                     "Ship Products",
                                                     "Out for delivery",
                                                     "Delivered"

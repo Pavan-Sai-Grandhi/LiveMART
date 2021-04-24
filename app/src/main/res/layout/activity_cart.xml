@@ -33,10 +33,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/r111"
-        android:layout_above="@+id/next_process_btn"
+        android:layout_above="@+id/mop_text"
         >
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/mop_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mode_of_payment"
+        android:text="Mode of Purchase"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"/>
+
+    <RadioGroup
+        android:id="@+id/mop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/mode_of_payment"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="7dp"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Online"
+            android:textSize="20dp"
+            android:layout_marginRight="10dp"
+            />
+        <RadioButton
+            android:id="@+id/offline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offline"
+            android:textSize="20dp"
+            />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/mode_of_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/next_process_btn"
+        android:text="Mode of Payment"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        android:layout_marginBottom="10dp"/>
+
+    <RadioButton
+        android:id="@+id/cod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/next_process_btn"
+        android:layout_alignParentRight="true"
+        android:text="Cash on Delivery"
+        android:textSize="20dp"
+        android:layout_marginRight="37dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="6dp"/>
 
     <Button
         android:id="@+id/next_process_btn"
@@ -45,11 +107,21 @@
         android:layout_alignParentBottom="true"
         android:background="@color/orange"
         android:text="Next"
+        android:visibility="invisible"
         android:textColor="@color/white"
         android:textSize="20dp"
         />
 
-
-
+    <Button
+        android:id="@+id/confirm_process_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/orange"
+        android:text="Confirm"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        android:textSize="20dp"
+        />
 </RelativeLayout>
 

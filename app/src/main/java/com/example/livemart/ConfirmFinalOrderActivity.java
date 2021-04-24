@@ -120,6 +120,7 @@ public class ConfirmFinalOrderActivity extends AppCompatActivity
         ordersMap.put("phone", phoneEditText.getText().toString());
         ordersMap.put("address", addressEditText.getText().toString());
         ordersMap.put("city", cityEditText.getText().toString());
+        ordersMap.put("mode", "Online");
         ordersMap.put("date", saveCurrentDate);
         ordersMap.put("time", saveCurrentTime);
         ordersMap.put("state", "Order Placed");
