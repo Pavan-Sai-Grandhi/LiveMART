@@ -15,11 +15,6 @@
             android:title="Received Orders"
             android:iconTint="@color/white"/>
         <item
-            android:id="@+id/nav_record"
-            android:icon="@drawable/data"
-            android:title="Records"
-            android:iconTint="@color/white"/>
-        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout"

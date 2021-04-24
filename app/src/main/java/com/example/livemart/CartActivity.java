@@ -97,7 +97,12 @@ public class CartActivity extends AppCompatActivity
         ConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ConfirmOrder();
+                if (overTotalPrice!=0){
+                    ConfirmOrder();
+                }
+                else {
+                    Toast.makeText(CartActivity.this,"No items in the cart",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

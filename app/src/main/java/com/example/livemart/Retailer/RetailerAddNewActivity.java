@@ -149,7 +149,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
     private void StoreProductInformation()
     {
         loadingBar.setTitle("Add New Product");
-        loadingBar.setMessage("Dear "+Prevalent.currentOnlineUser.getName()+", please wait while we are adding the new product.");
+        loadingBar.setMessage("Dear "+Prevalent.currentOnlineUser.getName()+", please wait while we are updating the new product.");
         loadingBar.setCanceledOnTouchOutside(false);
         loadingBar.show();
 
@@ -244,7 +244,7 @@ public class RetailerAddNewActivity extends AppCompatActivity {
                             startActivity(intent);
 
                             loadingBar.dismiss();
-                            Toast.makeText(RetailerAddNewActivity.this, "Product is added successfully..", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RetailerAddNewActivity.this, "Product is updated successfully..", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
