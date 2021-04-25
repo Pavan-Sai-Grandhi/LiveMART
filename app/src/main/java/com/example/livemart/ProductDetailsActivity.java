@@ -55,14 +55,9 @@ public class ProductDetailsActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if (state.equals("Order Placed") || state.equals("Order Shipped"))
-                {
-                    Toast.makeText(ProductDetailsActivity.this, "you can add purchase more products, once your order is shipped or confirmed.", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
+
                     addingToCartList();
-                }
+
             }
         });
     }
@@ -133,7 +128,7 @@ public class ProductDetailsActivity extends AppCompatActivity
                         numberButton.setVisibility(View.VISIBLE);
                     }
                     else {
-                        stock.setText("Out of stock");
+                        stock.setText("Out of stock. \n \n Item will be available tomorrow.");
                         addToCartButton.setVisibility(View.INVISIBLE);
                         numberButton.setVisibility(View.INVISIBLE);
                     }
